@@ -1,0 +1,50 @@
+{
+  "name": "mrj-mobility",
+  "version": "1.0.0",
+  "description": "Typescript API",
+  "main": "index.js",
+  "scripts": {
+    "build": "./scripts/build.sh",
+    "start": "node ./dist/main.js",
+    "dev": "nodemon --source ./src --ext ts --exec \"ts-node -r tsconfig-paths/register ./src/main.ts\"",
+    "test": "jest --passWithNoTests --runInBand",
+    "test:cov": "jest --passWithNoTests --runInBand --coverage",
+    "lint": "eslint '{src,test}/**/*.ts'",
+    "lint:fix": "eslint --fix '{src,test}/**/*.ts'",
+    "migration:create": "node ./node_modules/typeorm/cli.js migration:create",
+    "migration:revert": "node ./node_modules/typeorm/cli.js migration:revert",
+    "prepare": "husky"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "author": "Maycon Jesus <maycon.r.dejesus@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.7.0",
+    "@types/express": "^5.0.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.12.0",
+    "eslint": "9.x",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "git-commit-msg-linter": "^5.0.8",
+    "globals": "^15.8.0",
+    "husky": "^9.1.1",
+    "jest": "^29.7.0",
+    "lint-staged": "^15.2.7",
+    "nodemon": "^3.1.9",
+    "prettier": "^3.3.3",
+    "ts-jest": "^29.2.3",
+    "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.10",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^8.0.1"
+  },
+  "lint-staged": {
+    "*.ts": "eslint --fix"
+  },
+  "dependencies": {
+  }
+}
