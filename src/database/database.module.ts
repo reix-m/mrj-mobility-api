@@ -1,4 +1,4 @@
-import { DatabaseConfig } from 'src/config/database.config';
+import { DatabaseConfig } from '@src/config/database.config';
 import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource, DataSourceOptions } from 'typeorm';
