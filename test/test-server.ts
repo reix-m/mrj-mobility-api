@@ -1,4 +1,4 @@
-import { HttpStatus, ValidationPipe } from '@nestjs/common';
+import { Type } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getDataSourceToken } from '@nestjs/typeorm';
@@ -13,18 +13,16 @@ export class TestServer {
     public readonly testingModule: TestingModule,
   ) {}
 
-  public static async new(): Promise<TestServer> {
+  public static async new(moduleRef: Type<unknown>): Promise<TestServer> {
     initializeTransactionalContext({ storageDriver: StorageDriver.AUTO });
 
-    const testingModule: TestingModule = await Test.createTestingModule({ imports: [RootTestModule] }).compile();
+    const testingModule: TestingModule = await Test.createTestingModule({
+      imports: [RootTestModule, moduleRef],
+    }).compile();
 
     const dbConnection: DataSource = testingModule.get(getDataSourceToken());
 
     const serverApplication: NestExpressApplication = testingModule.createNestApplication();
-
-    serverApplication.useGlobalPipes(
-      new ValidationPipe({ whitelist: true, transform: true, errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY }),
-    );
 
     return new TestServer(serverApplication, dbConnection, testingModule);
   }
