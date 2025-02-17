@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { ServerApplication } from '@src/server/server';
 
 (async (): Promise<void> => {
