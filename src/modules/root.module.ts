@@ -1,3 +1,4 @@
+import { IdentityModule } from '@modules/identity/identity.module';
 import { Module, Provider } from '@nestjs/common';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { HttpExceptionFilter } from '@src/common/filters/exception.filter';
@@ -19,5 +20,5 @@ if (ApiServerConfig.LogEnable) {
   });
 }
 
-@Module({ imports: [DatabaseModule], providers: providers })
+@Module({ imports: [DatabaseModule, IdentityModule], providers: providers })
 export class RootModule {}
