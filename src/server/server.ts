@@ -1,5 +1,5 @@
 import { RootModule } from '@modules/root.module';
-import { Logger } from '@nestjs/common';
+import { ConsoleLogger, Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
@@ -14,7 +14,11 @@ export class ServerApplication {
   public async run(): Promise<void> {
     this.startTransactionalContext();
 
-    const app: NestExpressApplication = await NestFactory.create(RootModule);
+    const app: NestExpressApplication = await NestFactory.create(RootModule, {
+      logger: new ConsoleLogger({
+        json: true,
+      }),
+    });
 
     this.buildAPIDocumentation(app);
     this.log();
