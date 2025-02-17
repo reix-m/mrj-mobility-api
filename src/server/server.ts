@@ -1,5 +1,5 @@
 import { RootModule } from '@modules/root.module';
-import { HttpStatus, Logger, ValidationPipe } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
@@ -15,10 +15,6 @@ export class ServerApplication {
     this.startTransactionalContext();
 
     const app: NestExpressApplication = await NestFactory.create(RootModule);
-
-    app.useGlobalPipes(
-      new ValidationPipe({ whitelist: true, transform: true, errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY }),
-    );
 
     this.buildAPIDocumentation(app);
     this.log();
