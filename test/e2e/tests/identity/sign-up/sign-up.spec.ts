@@ -1,5 +1,5 @@
 import { UserResponseDto } from '@modules/identity/core/dto/user-response.dto';
-import { SignUpAdapter } from '@modules/identity/infra/adapter/sign-up.adapter';
+import { SignUpAdapter } from '@modules/identity/infra/adapter/service/sign-up/sign-up.adapter';
 import { User } from '@modules/identity/infra/persistence/entity/user.entity';
 import { UserRepository } from '@modules/identity/infra/persistence/repository/user.repository';
 import { HttpStatus } from '@nestjs/common';
