@@ -17,9 +17,9 @@ export class Crypto {
     });
   }
 
-  public static async compare(passwordHash: string, value: string): Promise<boolean> {
+  public static async compare(valueHashed: string, value: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const [salt, originalHash] = passwordHash.split('$');
+      const [salt, originalHash] = valueHashed.split('$');
 
       pbkdf2(value, salt, 1000, 64, 'sha512', function (error, buf) {
         if (error) {
