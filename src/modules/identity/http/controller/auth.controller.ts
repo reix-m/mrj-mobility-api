@@ -1,15 +1,21 @@
+import { ForgotPasswordService } from '@modules/identity/core/features/forgot-password/forgot-password.service';
 import { SignInService } from '@modules/identity/core/features/sign-in/sign-in.service';
 import { HttpSignedUser } from '@modules/identity/core/features/sign-in/type/http-signed-user';
+import { HttpModelForgotPasswordBody } from '@modules/identity/http/controller/docs/auth/http-model-forgot-password-body';
+import { HttpModelSignInBody } from '@modules/identity/http/controller/docs/auth/http-model-sign-body';
+import { ForgotPasswordAdapter } from '@modules/identity/infra/adapter/service/forgot-password/forgot-password.adapter';
 import { SignInAdapter } from '@modules/identity/infra/adapter/service/sign-in/sign-in.adapter';
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CoreApiResponse } from '@src/common/api/core-api-response';
-import { HttpModelSignInBody } from './docs/auth/http-model-sign-body';
 
 @Controller('/v1/auth')
 @ApiTags('auth')
 export class AuthController {
-  constructor(private readonly signInService: SignInService) {}
+  constructor(
+    private readonly signInService: SignInService,
+    private readonly forgotPasswordService: ForgotPasswordService,
+  ) {}
 
   @Post('sign-in')
   @HttpCode(HttpStatus.OK)
@@ -18,5 +24,14 @@ export class AuthController {
     const signedUser: HttpSignedUser = await this.signInService.execute(adapter);
 
     return CoreApiResponse.success('Success.', HttpStatus.OK, signedUser);
+  }
+
+  @Post('forgot-password')
+  @HttpCode(HttpStatus.OK)
+  public async forgot(@Body() body: HttpModelForgotPasswordBody): Promise<CoreApiResponse<null>> {
+    const adapter: ForgotPasswordAdapter = await ForgotPasswordAdapter.new(body);
+    await this.forgotPasswordService.execute(adapter);
+
+    return CoreApiResponse.success('Success.', HttpStatus.OK, null);
   }
 }
