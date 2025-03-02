@@ -3,7 +3,7 @@ import { User } from '@modules/identity/infra/persistence/entity/user.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { Nullable } from '@src/common/types/types';
-import { DataSource, EntityManager, InsertResult, SelectQueryBuilder } from 'typeorm';
+import { DataSource, EntityManager, InsertResult, SelectQueryBuilder, UpdateQueryBuilder } from 'typeorm';
 
 @Injectable()
 export class UserAccessRepository {
@@ -31,6 +31,21 @@ export class UserAccessRepository {
     this.extendQueryWithByProperties(query, by);
 
     return await query.getOne();
+  }
+
+  public async updateUserAccess(by: { id: string }, data: UserAccess): Promise<void> {
+    const query: UpdateQueryBuilder<UserAccess> = this.entityManager.createQueryBuilder().update(UserAccess);
+
+    query.andWhere(`id = :id`, { id: by.id });
+
+    query.set({
+      password: data.password,
+      resetToken: data.resetToken,
+      resetTokenExpiresIn: data.resetTokenExpiresIn,
+      updatedAt: data.updatedAt,
+    });
+
+    await query.execute();
   }
 
   private buildUserAccessQueryBuilder(): SelectQueryBuilder<UserAccess> {
