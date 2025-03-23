@@ -9,6 +9,7 @@
     "dev": "nodemon --source ./src --ext ts --exec \"ts-node -r tsconfig-paths/register ./src/main.ts\"",
     "test": "jest --passWithNoTests --runInBand",
     "test:cov": "jest --passWithNoTests --runInBand --coverage",
+    "format": "prettier --write .",
     "lint": "eslint '{src,test}/**/*.ts'",
     "lint:fix": "eslint --fix '{src,test}/**/*.ts'",
     "migration:create": "node ./node_modules/typeorm/cli.js migration:create",
