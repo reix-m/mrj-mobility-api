@@ -1,6 +1,7 @@
 import { ForgotPasswordService } from '@modules/identity/core/features/forgot-password/forgot-password.service';
 import { SignInService } from '@modules/identity/core/features/sign-in/sign-in.service';
 import { SignUpService } from '@modules/identity/core/features/sign-up/sign-up.service';
+import { ValidateResetTokenService } from '@modules/identity/core/features/validate-reset-token/validate-reset-token.service';
 import { AuthController } from '@modules/identity/http/controller/auth.controller';
 import { UserController } from '@modules/identity/http/controller/user.controller';
 import { UserAccessRepository } from '@modules/identity/infra/persistence/repository/user-access.repository';
@@ -10,7 +11,13 @@ import { JwtModule } from '@nestjs/jwt';
 import { SmtpService } from '@src/common/smtp/smtp.service';
 import { ApiServerConfig } from '@src/config/api-server.config';
 
-const services: Provider[] = [SignUpService, SignInService, ForgotPasswordService, SmtpService];
+const services: Provider[] = [
+  SignUpService,
+  SignInService,
+  ForgotPasswordService,
+  SmtpService,
+  ValidateResetTokenService,
+];
 
 const repositories: Provider[] = [UserRepository, UserAccessRepository];
 
