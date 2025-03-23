@@ -2,7 +2,7 @@ import { UserAccess } from '@modules/identity/infra/persistence/entity/user-acce
 import { UserAccessRepository } from '@modules/identity/infra/persistence/repository/user-access.repository';
 import { TestingModule } from '@nestjs/testing';
 import { Crypto } from '@src/common/crypto/crypto';
-import { randomBytes } from 'node:crypto';
+import { randomBytes, randomUUID } from 'node:crypto';
 
 export class UserAccessFixture {
   constructor(private readonly testingModule: TestingModule) {}
@@ -14,6 +14,8 @@ export class UserAccessFixture {
     const userAccess: UserAccess = UserAccess.new({
       userId: data.userId,
       password: await Crypto.hash(password),
+      resetToken: randomUUID(),
+      resetTokenExpiresIn: new Date(new Date().setHours(new Date().getHours() + 3)),
     });
 
     const { id }: { id: string } = await userAccessRepository.addUserAccess(userAccess);

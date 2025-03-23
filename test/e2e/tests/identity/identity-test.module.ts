@@ -2,6 +2,7 @@ import { createMock } from '@golevelup/ts-jest';
 import { ForgotPasswordService } from '@modules/identity/core/features/forgot-password/forgot-password.service';
 import { SignInService } from '@modules/identity/core/features/sign-in/sign-in.service';
 import { SignUpService } from '@modules/identity/core/features/sign-up/sign-up.service';
+import { ValidateResetTokenService } from '@modules/identity/core/features/validate-reset-token/validate-reset-token.service';
 import { AuthController } from '@modules/identity/http/controller/auth.controller';
 import { UserController } from '@modules/identity/http/controller/user.controller';
 import { UserAccessRepository } from '@modules/identity/infra/persistence/repository/user-access.repository';
@@ -15,6 +16,7 @@ const services: Provider[] = [
   SignUpService,
   SignInService,
   ForgotPasswordService,
+  ValidateResetTokenService,
   { provide: SmtpService, useValue: createMock() },
 ];
 
