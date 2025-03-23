@@ -3,10 +3,11 @@ import { SignInService } from '@modules/identity/core/features/sign-in/sign-in.s
 import { HttpSignedUser } from '@modules/identity/core/features/sign-in/type/http-signed-user';
 import { HttpModelForgotPasswordBody } from '@modules/identity/http/controller/docs/auth/http-model-forgot-password-body';
 import { HttpModelSignInBody } from '@modules/identity/http/controller/docs/auth/http-model-sign-body';
+import { HttpResponseSignedUser } from '@modules/identity/http/controller/docs/auth/http-response-signed-user';
 import { ForgotPasswordAdapter } from '@modules/identity/infra/adapter/service/forgot-password/forgot-password.adapter';
 import { SignInAdapter } from '@modules/identity/infra/adapter/service/sign-in/sign-in.adapter';
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CoreApiResponse } from '@src/common/api/core-api-response';
 
 @Controller('/v1/auth')
@@ -19,6 +20,8 @@ export class AuthController {
 
   @Post('sign-in')
   @HttpCode(HttpStatus.OK)
+  @ApiBody({ type: HttpModelSignInBody })
+  @ApiResponse({ status: HttpStatus.OK, type: HttpResponseSignedUser })
   public async signIn(@Body() body: HttpModelSignInBody): Promise<CoreApiResponse<HttpSignedUser>> {
     const adapter: SignInAdapter = await SignInAdapter.new(body);
     const signedUser: HttpSignedUser = await this.signInService.execute(adapter);
