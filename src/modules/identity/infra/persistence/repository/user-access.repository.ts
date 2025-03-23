@@ -26,7 +26,13 @@ export class UserAccessRepository {
     return { id: insertResult.identifiers[0].id };
   }
 
-  public async findUserAccess(by: { id?: string; userId?: string; email?: string }): Promise<Nullable<UserAccess>> {
+  public async findUserAccess(by: {
+    id?: string;
+    userId?: string;
+    email?: string;
+    resetToken?: string;
+    resetTokenExpiresIn?: Date;
+  }): Promise<Nullable<UserAccess>> {
     const query: SelectQueryBuilder<UserAccess> = this.buildUserAccessQueryBuilder();
     this.extendQueryWithByProperties(query, by);
 
@@ -57,7 +63,7 @@ export class UserAccessRepository {
 
   private extendQueryWithByProperties(
     query: SelectQueryBuilder<UserAccess>,
-    by?: { id?: string; userId?: string; email?: string },
+    by?: { id?: string; userId?: string; email?: string; resetToken?: string; resetTokenExpiresIn?: Date },
   ): void {
     if (by?.id) {
       query.andWhere(`"${this.userAccessAlias}"."id" = :id`, { id: by.id });
@@ -69,6 +75,16 @@ export class UserAccessRepository {
 
     if (by?.email) {
       query.andWhere(`"user"."email" = :email`, { email: by.email });
+    }
+
+    if (by?.resetToken) {
+      query.andWhere(`"${this.userAccessAlias}"."reset_token" = :resetToken`, { resetToken: by.resetToken });
+    }
+
+    if (by?.resetTokenExpiresIn) {
+      query.andWhere(`"${this.userAccessAlias}"."reset_token_expires_in" >= :resetTokenExpiresIn`, {
+        resetTokenExpiresIn: by?.resetTokenExpiresIn,
+      });
     }
   }
 }
