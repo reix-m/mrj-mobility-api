@@ -1,16 +1,11 @@
 {
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDirs": [
-      "./src",
-      "./test"
-    ],
+    "rootDirs": ["./src", "./test"],
     "baseUrl": "./",
     "module": "commonjs",
     "target": "ES2021",
-    "lib": [
-      "ES2021"
-    ],
+    "lib": ["ES2021"],
     "alwaysStrict": true,
     "strict": true,
     "strictPropertyInitialization": false,
@@ -23,23 +18,11 @@
     "allowJs": false,
     "resolveJsonModule": true,
     "paths": {
-      "@modules/*": [
-        "src/modules/*"
-      ],
-      "@src/*": [
-        "src/*"
-      ],
-      "@test/*": [
-        "test/*"
-      ]
+      "@modules/*": ["src/modules/*"],
+      "@src/*": ["src/*"],
+      "@test/*": ["test/*"]
     }
   },
-  "include": [
-    "./src/**/*.ts",
-    "./test/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
+  "include": ["./src/**/*.ts", "./test/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }
