@@ -1,0 +1,48 @@
+services:
+  api:
+    depends_on:
+      - postgres
+      - smtp
+    build: .
+    command: node dist/application/api/main
+    env_file:
+      - .env.example
+    ports:
+      - "3000:3000"
+    networks:
+      - webnet
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: mrj-app
+      POSTGRES_PASSWORD: Mrj@123
+      POSTGRES_DB: mrj-mobility
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgres/data
+    networks:
+      - webnet
+
+  smtp:
+    image: rnwood/smtp4dev:v3
+    ports:
+      - '5000:80'
+      - '25:25'
+      - '143:143'
+    volumes:
+      - smtp4dev-data:/smtp4dev
+    environment:
+      ServerOptions__Urls: http://*:80
+      ServerOptions__HostName: smtp4dev
+    networks:
+      - webnet
+
+volumes:
+  pg_data:
+  smtp4dev-data:
+
+networks:
+  webnet:
+    driver: bridge
