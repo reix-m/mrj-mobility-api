@@ -9,7 +9,4 @@ export class HttpApiResponse {
 
   @ApiProperty({ description: 'timestamp in ms', type: 'number' })
   public timestamp: number;
-
-  @ApiProperty({ type: Object })
-  public data: object;
 }

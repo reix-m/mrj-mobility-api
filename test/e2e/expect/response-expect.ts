@@ -1,5 +1,5 @@
-import { CoreApiResponse } from '@src/common/api/core-api-response';
-import { Nullable } from '@src/common/types/types';
+import { CoreApiResponse } from '@common/api/core-api-response';
+import { Nullable } from '@common/types/types';
 import { TestUtil } from '@test/common/test-util';
 
 export class ResponseExpect {

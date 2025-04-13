@@ -1,7 +1,7 @@
-import { UserAccess } from '@modules/identity/infra/persistence/entity/user-access.entity';
-import { UserAccessRepository } from '@modules/identity/infra/persistence/repository/user-access.repository';
+import { Crypto } from '@common/crypto/crypto';
+import { UserAccess } from '@core/identity/entity/user-access.entity';
+import { UserAccessRepository } from '@core/identity/persistence/repository/user-access.repository';
 import { TestingModule } from '@nestjs/testing';
-import { Crypto } from '@src/common/crypto/crypto';
 import { randomBytes, randomUUID } from 'node:crypto';
 
 export class UserAccessFixture {

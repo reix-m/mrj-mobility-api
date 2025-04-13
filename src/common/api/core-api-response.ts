@@ -1,5 +1,5 @@
+import { Nullable } from '@common/types/types';
 import { HttpStatus } from '@nestjs/common';
-import { Nullable } from '@src/common/types/types';
 
 export class CoreApiResponse<TData> {
   public readonly code: number;
