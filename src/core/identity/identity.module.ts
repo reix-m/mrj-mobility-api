@@ -9,13 +9,7 @@ import { SmtpService } from '@infra/smtp/smtp.service';
 import { Module, Provider } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 
-const services: Provider[] = [
-  SignUpService,
-  SignInService,
-  ForgotPasswordService,
-  SmtpService,
-  ValidateResetTokenService,
-];
+const services: Provider[] = [SignUpService, SignInService, ForgotPasswordService, ValidateResetTokenService];
 
 const repositories: Provider[] = [UserRepository, UserAccessRepository];
 
@@ -25,7 +19,7 @@ const repositories: Provider[] = [UserRepository, UserAccessRepository];
       secret: ApiServerConfig.AccessTokenSecret,
     }),
   ],
-  providers: [...services, ...repositories],
+  providers: [...services, ...repositories, SmtpService],
   exports: [...services],
 })
 export class IdentityModule {}
