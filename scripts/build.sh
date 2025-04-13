@@ -29,6 +29,7 @@ install() {
   echo "Instalando dependências na pasta dist..."
   cd ./dist
   yarn --freeze-lock-file --production
+  yarn cache clean --force
   cd ..
 }
 
