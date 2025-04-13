@@ -1,7 +1,7 @@
+import { HttpExceptionFilter } from '@application/api/filters/exception.filter';
+import { DatabaseModule } from '@infra/database/database.module';
 import { Module, Provider } from '@nestjs/common';
 import { APP_FILTER } from '@nestjs/core';
-import { HttpExceptionFilter } from '@src/common/filters/exception.filter';
-import { DatabaseModule } from '@src/database/database.module';
 
 const providers: Provider[] = [
   {

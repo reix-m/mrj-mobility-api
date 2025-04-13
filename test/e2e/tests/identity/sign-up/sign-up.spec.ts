@@ -1,9 +1,9 @@
-import { UserResponseDto } from '@modules/identity/core/dto/user-response.dto';
-import { SignUpAdapter } from '@modules/identity/infra/adapter/service/sign-up/sign-up.adapter';
-import { User } from '@modules/identity/infra/persistence/entity/user.entity';
-import { UserRepository } from '@modules/identity/infra/persistence/repository/user.repository';
+import { Nullable } from '@common/types/types';
+import { UserResponseDto } from '@core/identity/dto/user-response.dto';
+import { User } from '@core/identity/entity/user.entity';
+import { SignUpAdapter } from '@core/identity/features/sign-up/adapter/sign-up.adapter';
+import { UserRepository } from '@core/identity/persistence/repository/user.repository';
 import { HttpStatus } from '@nestjs/common';
-import { Nullable } from '@src/common/types/types';
 import { TransactionalTest } from '@test/common/transactional-test';
 import { ResponseExpect } from '@test/e2e/expect/response-expect';
 import { UserFixture } from '@test/e2e/fixture/user.fixture';

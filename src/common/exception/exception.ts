@@ -1,4 +1,4 @@
-import { Optional } from '@src/common/types/types';
+import { Optional } from '@common/types/types';
 
 export type CreateExceptionPayload<TData> = {
   code: number;

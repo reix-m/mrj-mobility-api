@@ -1,7 +1,7 @@
+import { ClassValidationDetails, ClassValidator } from '@common/class-validator/class-validator';
+import { Exception } from '@common/exception/exception';
+import { Optional } from '@common/types/types';
 import { HttpStatus } from '@nestjs/common';
-import { ClassValidationDetails, ClassValidator } from '@src/common/class-validator/class-validator';
-import { Exception } from '@src/common/exception/exception';
-import { Optional } from '@src/common/types/types';
 
 export class ServiceValidatableAdapter {
   public async validate(): Promise<void> {

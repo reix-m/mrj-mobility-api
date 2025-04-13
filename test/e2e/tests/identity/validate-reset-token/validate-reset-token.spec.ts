@@ -1,6 +1,6 @@
-import { ValidateResetTokenAdapter } from '@modules/identity/infra/adapter/service/validate-reset-token.adapter';
-import { UserAccess } from '@modules/identity/infra/persistence/entity/user-access.entity';
-import { User } from '@modules/identity/infra/persistence/entity/user.entity';
+import { UserAccess } from '@core/identity/entity/user-access.entity';
+import { User } from '@core/identity/entity/user.entity';
+import { ValidateResetTokenAdapter } from '@core/identity/features/validate-reset-token/adapter/validate-reset-token.adapter';
 import { HttpStatus } from '@nestjs/common';
 import { TransactionalTest } from '@test/common/transactional-test';
 import { ResponseExpect } from '@test/e2e/expect/response-expect';
@@ -80,7 +80,6 @@ describe('Validate Reset Token', () => {
     test('shold return "OK" response and is valid equal true when token is valid', async () => {
       const user: User = await userFixture.insertUser();
       const userAccess: UserAccess = await userAccessFixture.insertUserAccess({ userId: user.id });
-      console.log(userAccess);
       const payload: Record<string, unknown> = {
         token: userAccess.resetToken,
       };

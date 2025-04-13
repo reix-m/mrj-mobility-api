@@ -1,5 +1,5 @@
-import { User } from '@modules/identity/infra/persistence/entity/user.entity';
-import { UserRepository } from '@modules/identity/infra/persistence/repository/user.repository';
+import { User } from '@core/identity/entity/user.entity';
+import { UserRepository } from '@core/identity/persistence/repository/user.repository';
 import { TestingModule } from '@nestjs/testing';
 import { randomUUID } from 'node:crypto';
 

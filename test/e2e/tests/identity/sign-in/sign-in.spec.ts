@@ -1,5 +1,5 @@
-import { SignInAdapter } from '@modules/identity/infra/adapter/service/sign-in/sign-in.adapter';
-import { User } from '@modules/identity/infra/persistence/entity/user.entity';
+import { User } from '@core/identity/entity/user.entity';
+import { SignInAdapter } from '@core/identity/features/sign-in/adapter/sign-in.adapter';
 import { HttpStatus } from '@nestjs/common';
 import { TransactionalTest } from '@test/common/transactional-test';
 import { ResponseExpect } from '@test/e2e/expect/response-expect';
