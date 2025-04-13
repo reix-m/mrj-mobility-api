@@ -18,7 +18,7 @@ import { addTransactionalDataSource } from 'typeorm-transactional';
           password: DatabaseConfig.DbPassword,
           database: DatabaseConfig.DbName,
           logging: DatabaseConfig.DbLogEnable ? 'all' : false,
-          entities: [`${__dirname}/../../**/*.entity{.ts,.js}`],
+          entities: [`${__dirname}/../../core/**/*.entity{.ts,.js}`],
           migrationsRun: true,
           migrations: [`${__dirname}/typeorm/migration/**/*{.ts,.js}`],
           migrationsTransactionMode: 'all',
