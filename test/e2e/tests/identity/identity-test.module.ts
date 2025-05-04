@@ -1,6 +1,7 @@
 import { AuthController } from '@application/api/controllers/auth.controller';
 import { UserController } from '@application/api/controllers/user.controller';
 import { ForgotPasswordService } from '@core/identity/features/forgot-password/forgot-password.service';
+import { ResetPasswordService } from '@core/identity/features/reset-password/reset-password.service';
 import { SignInService } from '@core/identity/features/sign-in/sign-in.service';
 import { SignUpService } from '@core/identity/features/sign-up/sign-up.service';
 import { ValidateResetTokenService } from '@core/identity/features/validate-reset-token/validate-reset-token.service';
@@ -17,6 +18,7 @@ const services: Provider[] = [
   SignInService,
   ForgotPasswordService,
   ValidateResetTokenService,
+  ResetPasswordService,
   { provide: SmtpService, useValue: createMock() },
 ];
 

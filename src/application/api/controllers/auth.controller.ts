@@ -1,6 +1,13 @@
+import { HttpModelForgotPasswordBody } from '@application/api/docs/auth/http-model-forgot-password-body';
+import { HttpModelSignInBody } from '@application/api/docs/auth/http-model-sign-body';
+import { HttpResponseValidateResetToken } from '@application/api/docs/auth/http-model-validate-reset-token';
+import { HttpModelValidateResetTokenBody } from '@application/api/docs/auth/http-model-validate-reset-token-body';
+import { HttpResponseSignedUser } from '@application/api/docs/auth/http-response-signed-user';
 import { CoreApiResponse } from '@common/api/core-api-response';
 import { ForgotPasswordAdapter } from '@core/identity/features/forgot-password/adapter/forgot-password.adapter';
 import { ForgotPasswordService } from '@core/identity/features/forgot-password/forgot-password.service';
+import { ResetPasswordAdapter } from '@core/identity/features/reset-password/adapter/reset-password.adapter';
+import { ResetPasswordService } from '@core/identity/features/reset-password/reset-password.service';
 import { SignInAdapter } from '@core/identity/features/sign-in/adapter/sign-in.adapter';
 import { SignInService } from '@core/identity/features/sign-in/sign-in.service';
 import { HttpSignedUser } from '@core/identity/features/sign-in/type/http-signed-user';
@@ -8,11 +15,7 @@ import { ValidateResetTokenAdapter } from '@core/identity/features/validate-rese
 import { ValidateResetTokenService } from '@core/identity/features/validate-reset-token/validate-reset-token.service';
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { HttpModelForgotPasswordBody } from '@application/api/docs/auth/http-model-forgot-password-body';
-import { HttpModelSignInBody } from '@application/api/docs/auth/http-model-sign-body';
-import { HttpResponseValidateResetToken } from '@application/api/docs/auth/http-model-validate-reset-token';
-import { HttpModelValidateResetTokenBody } from '@application/api/docs/auth/http-model-validate-reset-token-body';
-import { HttpResponseSignedUser } from '@application/api/docs/auth/http-response-signed-user';
+import { HttpModelResetPasswordBody } from '../docs/auth/http-model-reset-password-body';
 
 @Controller('/v1/auth')
 @ApiTags('auth')
@@ -21,6 +24,7 @@ export class AuthController {
     private readonly signInService: SignInService,
     private readonly forgotPasswordService: ForgotPasswordService,
     private readonly validateResetTokenService: ValidateResetTokenService,
+    private readonly resetPasswordService: ResetPasswordService,
   ) {}
 
   @Post('sign-in')
@@ -54,5 +58,16 @@ export class AuthController {
     const tokenIsValid: { isValid: boolean } = await this.validateResetTokenService.execute(adapter);
 
     return CoreApiResponse.success('Success.', HttpStatus.OK, tokenIsValid);
+  }
+
+  @Post('reset-password')
+  @HttpCode(HttpStatus.OK)
+  @ApiBody({ type: HttpModelResetPasswordBody })
+  @ApiResponse({ status: HttpStatus.OK })
+  public async resetPassword(@Body() body: HttpModelResetPasswordBody): Promise<CoreApiResponse<void>> {
+    const adapter: ResetPasswordAdapter = await ResetPasswordAdapter.new(body);
+    await this.resetPasswordService.execute(adapter);
+
+    return CoreApiResponse.success('Success.', HttpStatus.OK);
   }
 }
